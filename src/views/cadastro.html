@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="icon" type="image/png" href="/logo_dearbook.png">
+</head>
+
+<body id="body-Cadastro">
+    <div class="container d-flex align-items-center justify-content-center" style="height: 100vh;">
+        <form class="form-cadastro" action="/cadastrousuario" method="post">
+            <h1 id="h1-cadastro">Cadastre-se</h1>
+            <div class="form-group">
+                <label for="nome">Nome</label>
+                <input type="nome" class="form-control" id="nome" name="nome" placeholder="Informe o seu nome" required>
+            </div>
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp"
+                    placeholder="Insira um e-mail" required>
+            </div>
+            <div class="form-group">
+                <label for="senha">Senha</label>
+                <input type="password" class="form-control" id="senha" name="senha" placeholder="Insira uma senha"
+                    required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block" style="margin-bottom: 20px;">Cadastrar</button>
+            {{#existe}}
+            <div class="alert alert-warning" style="margin-top: 5px;">
+                E-mail já está em uso!
+            </div>
+            {{/existe}}
+            {{#erro_banco}}
+            <div class="alert alert-danger" style="margin-top: 5px;">
+                Erro no banco
+            </div>
+            {{/erro_banco}}
+
+            Já tem uma conta? faça seu <a href="/">login</a>
+
+        </form>
+    </div>
+</body>
+
+</html>

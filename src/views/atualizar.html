@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="/logo_dearbook.png">
+</head>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="barranav">
+        <img src="logo_dearbook.png" alt="">
+        <a class="navbar-brand titulo-menu" href="/biblioteca"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/biblioteca">Biblioteca</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/cadastrar">Cadastrar</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/sobre">Sobre</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Atualizar<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/sair">Sair</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<body id="body-atualiza">
+    {{#atualizado}}
+    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+        <strong>Sucesso!</strong> Usuario atualizado.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {{/atualizado}}
+
+    <h1 id="h1-geral">Atualizar</h1>
+
+    <div class="container mt-4">
+        <form id="atualizarForm" action="/atualizarusr" method="POST" class="border rounded p-4 shadow-sm form-atualizar">
+            <div class="form-group">
+                <label for="inputNome">Novo Nome</label>
+                <input type="text" class="form-control" id="inputNome" name="nome" required>
+            </div>
+            <div class="form-group">
+                <label for="inputSenha">Nova Senha</label>
+                <input type="password" class="form-control" id="inputSenha" name="senha" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Atualizar</button>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</html>

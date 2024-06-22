@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dearbook</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link href="logo_dearbook.png" rel="icon">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="barranav">
+            <img src="logo_dearbook.png" alt="">
+            <a class="navbar-brand titulo-menu" href="/biblioteca"></a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Biblioteca<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/cadastrar">Cadastrar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/sobre">Sobre</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/atualizar">Atualizar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/sair">Sair</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    {{#atualizado}}
+    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+        <strong>Sucesso!</strong> O livro foi atualizado com sucesso.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {{/atualizado}}
+
+    {{#deletado}}
+    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+        <strong>Sucesso!</strong> O livro foi excluído com sucesso.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {{/deletado}}
+
+    <h1 id="h1-geral">Biblioteca de {{nome}}</h1>
+    <div class="container">
+        <table id="tabela-livros" class="table table-bordered table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Nome do Livro</th>
+                    <th scope="col">Nome do Autor</th>
+                    <th scope="col">Classificação</th>
+                    <th scope="col">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="modal fade" id="editarLivroModal" tabindex="-1" role="dialog" aria-labelledby="editarLivroModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editarLivroModalLabel">Editar Livro</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="editarLivroForm" action="/editar/{{id}}" method="POST">
+                        <div class="form-group">
+                            <label for="inputNomeLivro">Nome do Livro</label>
+                            <input type="text" class="form-control" id="inputNomeLivro" name="nomeLivro">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputNomeAutor">Autor</label>
+                            <select class="form-control" id="inputNomeAutor" name="nomeAutor">
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputClassificacao">Classificação</label>
+                            <select class="form-control" id="inputClassificacao" name="classificacao">
+                                <option>Livre</option>
+                                <option>+10</option>
+                                <option>+12</option>
+                                <option>+16</option>
+                                <option>+18</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputDescricao">Descrição</label>
+                            <textarea class="form-control" id="inputDescricao" name="descricao" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog"
+        aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar Exclusão</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Tem certeza que deseja excluir este livro?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <a id="confirmDeleteBtn" class="btn btn-danger" href="#">Excluir</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            fetch('/livros')
+                .then(response => response.json())
+                .then(data => {
+                    const tabelaLivros = document.getElementById('tabela-livros');
+
+                    data.forEach(livro => {
+                        const row = tabelaLivros.insertRow();
+                        row.innerHTML = `
+                            <td>${livro.nomeLivro}</td>
+                            <td>${livro.nomeAutor}</td>
+                            <td>${livro.classificacao}</td>
+                            <td>
+                                <a href="/download/${livro.arquivoPDF}" class="btn btn-primary btn-sm" target="_blank" title="Visualizar PDF"><i class="fas fa-eye"></i></a>
+                                <button type="button" class="btn btn-warning btn-sm editar-livro" data-toggle="modal" data-target="#editarLivroModal" data-id="${livro.id}" data-nome="${livro.nomeLivro}" data-autor="${livro.nomeAutor}" data-classificacao="${livro.classificacao}" data-descricao="${livro.descricao}" title="Editar"><i class="fas fa-edit"></i></button>
+                                <a href="#" class="btn btn-danger btn-sm delete-livro" data-toggle="modal" data-target="#confirmDeleteModal" data-id="${livro.id}" title="Excluir"><i class="fas fa-trash"></i></a>
+                            </td>
+                        `;
+                    });
+                })
+                .catch(error => console.error('Erro ao carregar dados dos livros:', error));
+
+            $('#editarLivroModal').on('show.bs.modal', function (event) {
+                const button = $(event.relatedTarget);
+                const id = button.data('id');
+                const nomeLivro = button.data('nome');
+                const nomeAutor = button.data('autor');
+                const classificacao = button.data('classificacao');
+                const descricao = button.data('descricao');
+
+                const modal = $(this);
+                modal.find('.modal-title').text('Editar Livro');
+                modal.find('#inputIdLivro').val(id);
+                modal.find('#inputNomeLivro').val(nomeLivro);
+                modal.find('#inputNomeAutor').val(nomeAutor);
+                modal.find('#inputClassificacao').val(classificacao);
+                modal.find('#inputDescricao').val(descricao);
+
+                modal.find('#editarLivroForm').attr('action', `/editar/${id}`);
+            });
+
+            // Listener para o link de exclusão
+            $('#confirmDeleteModal').on('show.bs.modal', function (event) {
+                const button = $(event.relatedTarget);
+                const id = button.data('id');
+                const confirmDeleteBtn = $(this).find('.modal-footer #confirmDeleteBtn');
+                confirmDeleteBtn.attr('href', `/excluir/${id}`);
+            });
+
+            fetch('/autores')
+                .then(response => response.json())
+                .then(autores => {
+                    const select = document.getElementById('inputNomeAutor');
+
+                    autores.forEach(autor => {
+                        const option = document.createElement('option');
+                        option.textContent = autor;
+                        select.appendChild(option);
+                    });
+                })
+                .catch(error => console.error('Erro ao carregar os autores:', error));
+        });
+    </script>
+
+</body>
+
+</html>
